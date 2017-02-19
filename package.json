@@ -8,6 +8,7 @@
     "deploy": "gh-pages-deploy",
     "build": "browserify index.js -o bundle.js && browserify terminal.js -o terminal-bundle.js",
     "fixcolor": "sed 's/eeeeec/333333/g' terminal-bundle.js > terminal-bundle.fjs && mv terminal-bundle.fjs terminal-bundle.js",
+    "fixserver": "sed s/localhost/130.56.252.93/g bundle.js > bundle.fjs && mv bundle.fjs bundle.js",
     "start": "beefy index.js:bundle.js terminal.js:terminal-bundle.js"
   },
   "author": "richard smith-unna",
@@ -19,6 +20,7 @@
     "prep": [
       "build",
       "fixcolor",
+      "fixserver",
       "render"
     ],
     "noprompt": "true"
