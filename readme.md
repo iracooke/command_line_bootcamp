@@ -23,7 +23,7 @@ nvm use 0.12
 Once you've got node installed, grab this repo and let node install the dependencies:
 
 ```bash
-git clone https://github.com/Blahah/command_line_bootcamp.git
+git clone https://github.com/iracooke/command_line_bootcamp.git
 cd command_line_bootcamp
 npm install
 ```
@@ -59,11 +59,11 @@ nvm install 0.12
 nvm use 0.12
 
 # major dependencies
-npm install --global docker-browser-server
+npm install --global iracooke/docker-browser-server
 
 # setup docker
 docker pull ubuntu
-git clone https://github.com/Blahah/command_line_bootcamp.git
+git clone https://github.com/iracooke/command_line_bootcamp.git
 cd command_line_bootcamp
 docker build -t "command_line_bootcamp" .
 docker-browser-server command_line_bootcamp -p 8080

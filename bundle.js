@@ -13,7 +13,7 @@ if (!qs.id) {
 var opts = {
   guide: 'guide/',
   console: 'terminal.html',
-  server: "46.101.11.144:8080",
+  server: "localhost:8080",
   id: qs.id
 }
 
@@ -200,8 +200,17 @@ function onerror(err) {
  * Module dependencies.
  */
 
-var closest = require('closest')
-  , event = require('event');
+try {
+  var closest = require('closest');
+} catch(err) {
+  var closest = require('component-closest');
+}
+
+try {
+  var event = require('event');
+} catch(err) {
+  var event = require('component-event');
+}
 
 /**
  * Delegate event `type` to `selector`
@@ -239,12 +248,16 @@ exports.unbind = function(el, type, fn, capture){
   event.unbind(el, type, fn, capture);
 };
 
-},{"closest":4,"event":7}],4:[function(require,module,exports){
+},{"closest":4,"component-closest":4,"component-event":7,"event":7}],4:[function(require,module,exports){
 /**
  * Module Dependencies
  */
 
-var matches = require('matches-selector')
+try {
+  var matches = require('matches-selector')
+} catch (err) {
+  var matches = require('component-matches-selector')
+}
 
 /**
  * Export `closest`
@@ -273,12 +286,16 @@ function closest (el, selector, scope) {
   return matches(el, selector) ? el : null;
 }
 
-},{"matches-selector":5}],5:[function(require,module,exports){
+},{"component-matches-selector":5,"matches-selector":5}],5:[function(require,module,exports){
 /**
  * Module dependencies.
  */
 
-var query = require('query');
+try {
+  var query = require('query');
+} catch (err) {
+  var query = require('component-query');
+}
 
 /**
  * Element prototype.
@@ -321,7 +338,7 @@ function match(el, selector) {
   return false;
 }
 
-},{"query":6}],6:[function(require,module,exports){
+},{"component-query":6,"query":6}],6:[function(require,module,exports){
 function one(selector, el) {
   return el.querySelector(selector);
 }
@@ -345,9 +362,13 @@ exports.engine = function(obj){
 };
 
 },{}],7:[function(require,module,exports){
-var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
-    unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
-    prefix = bind !== 'addEventListener' ? 'on' : '';
+var bind, unbind, prefix;
+
+function detect () {
+  bind = window.addEventListener ? 'addEventListener' : 'attachEvent';
+  unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent';
+  prefix = bind !== 'addEventListener' ? 'on' : '';
+}
 
 /**
  * Bind `el` event `type` to `fn`.
@@ -361,6 +382,7 @@ var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
  */
 
 exports.bind = function(el, type, fn, capture){
+  if (!bind) detect();
   el[bind](prefix + type, fn, capture || false);
   return fn;
 };
@@ -377,9 +399,11 @@ exports.bind = function(el, type, fn, capture){
  */
 
 exports.unbind = function(el, type, fn, capture){
+  if (!unbind) detect();
   el[unbind](prefix + type, fn, capture || false);
   return fn;
 };
+
 },{}],8:[function(require,module,exports){
 /* jshint node: true */
 'use strict';
