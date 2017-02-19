@@ -1,5 +1,7 @@
 # Command-line bootcamp
 
+Forked from the original with the intention of adding content
+
 Learn the unix command-line by using it in your browser.
 
 ### contributors
